@@ -1,7 +1,7 @@
 export const BodyRow = ({ user }) => {
 	// console.log("BodyRow: ", user);
 	return (
-		<tr>
+		<tr id={user._id}>
 			<td>
 				<img
 					src={user.imageUrl}

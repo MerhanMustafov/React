@@ -1,12 +1,15 @@
-export const Create = () => {
+export const Create = ({ onClose }) => {
 	return (
 		<div className="overlay">
-			<div className="backdrop"></div>
+			<div className="backdrop" onClick={() => onClose(false)}></div>
 			<div className="modal">
 				<div className="user-container">
 					<header className="headers">
 						<h2>Edit User/Add User</h2>
-						<button className="btn close">
+						<button
+							className="btn close"
+							onClick={() => onClose(false)}
+						>
 							<svg
 								aria-hidden="true"
 								focusable="false"
@@ -190,6 +193,7 @@ export const Create = () => {
 								id="action-cancel"
 								className="btn"
 								type="button"
+								onClick={() => onClose(false)}
 							>
 								Cancel
 							</button>

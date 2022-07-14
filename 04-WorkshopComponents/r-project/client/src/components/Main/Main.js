@@ -10,6 +10,7 @@ import { Pagination } from "./Pagination";
 
 export const Main = () => {
 	let [usersData, setUsersData] = useState([]);
+	let [addNewUserBtn, setAddNewUserBtn] = useState(false);
 	console.log("Initial STATE: ", usersData);
 	// with THEN
 	// useEffect(() => {
@@ -30,19 +31,26 @@ export const Main = () => {
 			setUsersData((old) => (old = newUserData));
 		})();
 	}, []);
+
 	return (
 		<main className="main">
 			<section className="card users-container">
 				<Search></Search>
 				<Table listOfUsers={usersData}></Table>
 				{/* <!-- New user button  --> */}
-				<button className="btn-add btn">Add new user</button>
+				<button
+					className="btn-add btn"
+					onClick={() => setAddNewUserBtn((old) => (old = true))}
+				>
+					Add new user
+				</button>
 				<Pagination></Pagination>
 			</section>
 
 			{/* <!-- User details component  --> */}
 			{/* <Details></Deta> */}
 			{/* <!-- Create/Edit Form component  --> */}
+			{addNewUserBtn && <Create onClose={setAddNewUserBtn}></Create>}
 			{/* <Create></Create> */}
 			{/* {/* <!-- Delete user component  --> */}
 			{/* <Delete></Delete> */}
