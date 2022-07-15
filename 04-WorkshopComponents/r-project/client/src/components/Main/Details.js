@@ -1,4 +1,5 @@
 export const Details = ({ user, close }) => {
+  console.log(user)
   return (
     <div className="overlay">
       <div
@@ -32,36 +33,36 @@ export const Details = ({ user, close }) => {
           </header>
           <div className="content">
             <div className="image-container">
-              <img src={user.imageUrl} alt="" className="image" />
+              <img src={user?.imageUrl} alt="" className="image" />
             </div>
             <div className="user-details">
               <p>
-                User Id: <strong>{user._id}</strong>
+                User Id: <strong>{user?._id}</strong>
               </p>
               <p>
                 Full Name:
                 <strong>
-                  {user.firstName} {user.lastName}{' '}
+                  {user?.firstName} {user?.lastName}
                 </strong>
               </p>
               <p>
-                Email: <strong>{user.email}</strong>
+                Email: <strong>{user?.email}</strong>
               </p>
               <p>
-                Phone Number: <strong>{user.phoneNumber}</strong>
+                Phone Number: <strong>{user?.phoneNumber}</strong>
               </p>
               <p>
                 Address:
                 <strong>
-                  {`${user.address.country}, ${user.address.city}, ${user.address.street}, ${user.address.streetNumber}`}{' '}
+                  {`${user?.address.country}, ${user?.address.city}, ${user?.address.street}, ${user?.address.streetNumber}`}{' '}
                 </strong>
               </p>
 
               <p>
-                Created on: <strong>{user.createdAt}</strong>
+                Created on: <strong>{user?.createdAt}</strong>
               </p>
               <p>
-                Modified on: <strong>{user.updatedAt}</strong>
+                Modified on: <strong>{user?.updatedAt}</strong>
               </p>
             </div>
           </div>

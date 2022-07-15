@@ -1,13 +1,12 @@
-export const Create = ({ onClose, onSave }) => {
-  // console.log(obj);
-  // const form = document.querySelector("form");
+export const Edit = ({ user, onSave, onClose }) => {
+  console.log(user)
   return (
     <div className="overlay">
       <div className="backdrop" onClick={() => onClose(false)}></div>
       <div className="modal">
         <div className="user-container">
           <header className="headers">
-            <h2>Add User</h2>
+            <h2>Edit User</h2>
             <button className="btn close" onClick={() => onClose(false)}>
               <svg
                 aria-hidden="true"
@@ -26,7 +25,7 @@ export const Create = ({ onClose, onSave }) => {
               </svg>
             </button>
           </header>
-          <form className="addForm">
+          <form className="editForm">
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="firstName">First name</label>
@@ -146,7 +145,7 @@ export const Create = ({ onClose, onSave }) => {
                 id="action-save"
                 className="btn"
                 type="submit"
-                onClick={(e) => onSave(e, '.addForm')}
+                onClick={(e) => onSave(e, '.editForm')}
               >
                 Save
               </button>

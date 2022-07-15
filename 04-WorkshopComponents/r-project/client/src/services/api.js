@@ -20,7 +20,7 @@ async function getUsers(endPoint) {
 
 async function postUser(user, endPoint) {
   const url = baseUrl + endPoint
-  const u = await fetch(url, {
+  await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user),
@@ -29,8 +29,7 @@ async function postUser(user, endPoint) {
 
 async function deleteUser(endPoint) {
   const url = baseUrl + endPoint
-  const res = await fetch(url, { method: 'DELETE' })
-  const user = await res.json()
+  await fetch(url, { method: 'DELETE' })
 }
 async function getUserById(endPoint) {
   const url = baseUrl + endPoint
