@@ -5,13 +5,13 @@ import { Search } from "./Search.js";
 import { Table } from "./Table/Table.js";
 import { Details } from "./Details.js";
 import { Create } from "./Create.js";
-import { Delete } from "./Delete.js";
 import { Pagination } from "./Pagination";
 
 export const Main = () => {
 	let [usersData, setUsersData] = useState([]);
 	let [addNewUserBtn, setAddNewUserBtn] = useState(false);
-	console.log("Initial STATE: ", usersData);
+	// console.log("Initial STATE: ", usersData);
+
 	// with THEN
 	// useEffect(() => {
 	// 	api.getUsers("/users")
@@ -30,7 +30,28 @@ export const Main = () => {
 			const newUserData = users;
 			setUsersData((old) => (old = newUserData));
 		})();
-	}, []);
+	}, [usersData]);
+
+	async function addNewUser(e) {
+		e.preventDefault();
+		const form = document.querySelector(".add_editForm");
+		const data = new FormData(form);
+		const newUser = {
+			firstName: data.get("firstName"),
+			lastName: data.get("lastName"),
+			email: data.get("email"),
+			imageUrl: data.get("imageUrl"),
+			phoneNumber: data.get("phoneNumber"),
+			address: {
+				country: data.get("country"),
+				city: data.get("city"),
+				street: data.get("street"),
+				streetNumber: Number(data.get("streetNumber")),
+			},
+		};
+		await api.postUser(newUser, "/users");
+		setAddNewUserBtn(false);
+	}
 
 	return (
 		<main className="main">
@@ -40,7 +61,7 @@ export const Main = () => {
 				{/* <!-- New user button  --> */}
 				<button
 					className="btn-add btn"
-					onClick={() => setAddNewUserBtn((old) => (old = true))}
+					onClick={() => setAddNewUserBtn(true)}
 				>
 					Add new user
 				</button>
@@ -50,10 +71,9 @@ export const Main = () => {
 			{/* <!-- User details component  --> */}
 			{/* <Details></Deta> */}
 			{/* <!-- Create/Edit Form component  --> */}
-			{addNewUserBtn && <Create onClose={setAddNewUserBtn}></Create>}
-			{/* <Create></Create> */}
-			{/* {/* <!-- Delete user component  --> */}
-			{/* <Delete></Delete> */}
+			{addNewUserBtn && (
+				<Create onSave={addNewUser} onClose={setAddNewUserBtn}></Create>
+			)}
 		</main>
 	);
 };

@@ -1,5 +1,11 @@
+import * as api from "../../../services/api.js";
 export const BodyRow = ({ user }) => {
-	// console.log("BodyRow: ", user);
+	async function deleteRow(e) {
+		const id = e.target.parentElement.parentElement.id;
+		const endPoint = `/users/${id}`;
+		const user = await api.del(endPoint);
+	}
+
 	return (
 		<tr id={user._id}>
 			<td>
@@ -33,7 +39,12 @@ export const BodyRow = ({ user }) => {
 						></path>
 					</svg>
 				</button>
-				<button className="btn delete-btn" title="Delete">
+				<button
+					className="btn delete-btn"
+					title="Delete"
+					id={user._id}
+					onClick={(e) => deleteRow(e)}
+				>
 					<svg
 						aria-hidden="true"
 						focusable="false"
