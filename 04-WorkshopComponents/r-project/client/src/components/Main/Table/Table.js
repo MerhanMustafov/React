@@ -1,36 +1,40 @@
-import { HeadRow } from "./Head.js";
-import { BodyRow } from "./Body.js";
+import { HeadRow } from './Head.js'
+import { BodyRow } from './Body.js'
 
-export const Table = ({ listOfUsers }) => {
-	return (
-		<div className="table-wrapper">
-			<table className="table">
-				<thead>
-					<HeadRow></HeadRow>
-				</thead>
-				<tbody>
-					{listOfUsers.map((user) => (
-						<BodyRow key={user._id} user={user}></BodyRow>
-					))}
-				</tbody>
-			</table>
-		</div>
-	);
-};
+export const Table = ({ listOfUsers, infoBtnClick }) => {
+  return (
+    <div className="table-wrapper">
+      <table className="table">
+        <thead>
+          <HeadRow></HeadRow>
+        </thead>
+        <tbody>
+          {listOfUsers.map((user) => (
+            <BodyRow
+              key={user._id}
+              user={user}
+              infoBtnClick={infoBtnClick}
+            ></BodyRow>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
 
 {
-	/* <!-- Overlap components  --> */
+  /* <!-- Overlap components  --> */
 }
 {
-	/* <!-- <div className="loading-shade"> -->
+  /* <!-- <div className="loading-shade"> -->
 	<!-- Loading spinner  -->
 	<!-- <div className="spinner"></div> --> */
 }
 {
-	/* <!-- No users added yet  --> */
+  /* <!-- No users added yet  --> */
 }
 {
-	/* <div className="table-overlap">
+  /* <div className="table-overlap">
 				<svg
 					aria-hidden="true"
 					focusable="false"
@@ -50,10 +54,10 @@ export const Table = ({ listOfUsers }) => {
 			</div>{" "} */
 }
 {
-	/* <!-- No content overlap component  --> */
+  /* <!-- No content overlap component  --> */
 }
 {
-	/* <div className="table-overlap">
+  /* <div className="table-overlap">
 				<svg
 					aria-hidden="true"
 					focusable="false"
@@ -73,10 +77,10 @@ export const Table = ({ listOfUsers }) => {
 			</div>{" "} */
 }
 {
-	/* <!-- On error overlap component  --> */
+  /* <!-- On error overlap component  --> */
 }
 {
-	/* <div className="table-overlap">
+  /* <div className="table-overlap">
 				<svg
 					aria-hidden="true"
 					focusable="false"
@@ -96,5 +100,5 @@ export const Table = ({ listOfUsers }) => {
 			</div>{" "} */
 }
 {
-	/* </div> */
+  /* </div> */
 }
