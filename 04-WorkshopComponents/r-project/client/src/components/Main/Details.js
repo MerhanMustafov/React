@@ -1,19 +1,18 @@
-export const Details = ({ user, close }) => {
-  console.log(user)
+import { useEffect } from 'react'
+export const Details = ({ close, user }) => {
+  //   console.log('Inside Details')
+  //   useEffect(() => {
+  //     console.log('Inside Details')
+  //     console.log(user)
+  //   }, [])
   return (
     <div className="overlay">
-      <div
-        className="backdrop"
-        onClick={() => close((old) => (old = null))}
-      ></div>
+      <div className="backdrop" onClick={() => close(null)}></div>
       <div className="modal">
         <div className="detail-container">
           <header className="headers">
             <h2>User Detail</h2>
-            <button
-              className="btn close"
-              onClick={() => close((old) => (old = null))}
-            >
+            <button className="btn close" onClick={() => close(null)}>
               <svg
                 aria-hidden="true"
                 focusable="false"
@@ -33,36 +32,35 @@ export const Details = ({ user, close }) => {
           </header>
           <div className="content">
             <div className="image-container">
-              <img src={user?.imageUrl} alt="" className="image" />
+              <img src={user.imageUrl} alt="" className="image" />
             </div>
             <div className="user-details">
               <p>
-                User Id: <strong>{user?._id}</strong>
+                User Id: <strong>{user._id}</strong>
               </p>
               <p>
                 Full Name:
-                <strong>
-                  {user?.firstName} {user?.lastName}
-                </strong>
+                <strong> {user.firstName}</strong>
               </p>
               <p>
-                Email: <strong>{user?.email}</strong>
+                Email: <strong> {user.email}</strong>
               </p>
               <p>
-                Phone Number: <strong>{user?.phoneNumber}</strong>
+                Phone Number: <strong> {user.phoneNumber}</strong>
               </p>
               <p>
                 Address:
                 <strong>
-                  {`${user?.address.country}, ${user?.address.city}, ${user?.address.street}, ${user?.address.streetNumber}`}{' '}
+                  {' '}
+                  {`${user.address.country}, ${user.address.city}, ${user.address.street}, ${user.address.streetNumber}`}
                 </strong>
               </p>
 
               <p>
-                Created on: <strong>{user?.createdAt}</strong>
+                Created on: <strong>${user.createdAt}</strong>
               </p>
               <p>
-                Modified on: <strong>{user?.updatedAt}</strong>
+                Modified on: <strong>${user.updatedAt}</strong>
               </p>
             </div>
           </div>

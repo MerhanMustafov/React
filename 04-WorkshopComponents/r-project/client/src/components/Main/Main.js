@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import * as api from '../../services/api.js'
+import { statesObject } from '../../services/states.js'
 
 import { Search } from './Search.js'
 import { Table } from './Table/Table.js'
@@ -9,80 +10,34 @@ import { Edit } from './Edit'
 import { Pagination } from './Pagination'
 
 export const Main = () => {
-  let [usersData, setUsersData] = useState([])
-  let [addNewUserBtn, setAddNewUserBtn] = useState(false)
-  let [editBtn, setEditBtn] = useState([false, null])
-  const [editUserData, setEditUserData] = useState(null)
-
-  let [infoBtn, setInfoBtn] = useState([false, null])
-  const [infoUserData, setInfoUserData] = useState(null)
-  //With async/await
-  console.log('MAIN')
+  const [usersData, setUsersData] = useState([])
+  const [infoUserD, setInfoUserD] = useState(null)
+  //   console.log('Running... ', usersData)
   useEffect(() => {
-    ;(async () => {
-      const users = await api.getUsers('/users')
-      const newUserData = users
-      setUsersData((old) => (old = newUserData))
-    })()
-  }, [])
-
-  useEffect(() => {
-    if (infoBtn[1] || editBtn[1]) {
-      async function getUser() {
-        const infoId =
-          infoBtn[1].target.parentElement.id ||
-          infoBtn[1].target.parentElement.parentElement.id
-
-        const id = infoId
-        // e.target.parentElement.id || e.target.parentElement.parentElement.id
-        const endPoint = `/users/${id}`
-        const user = await api.getUserById(endPoint)
-        setInfoUserData((old) => (old = user.user))
-      }
-      getUser()
+    async function getAllUsers() {
+      setUsersData(await api.getUsers('/users'))
     }
-  }, [infoBtn[0]])
-
-  //   async function addNewUser(e, type) {
-  //     e.preventDefault()
-
-  //     const form = document.querySelector(type)
-  //     const newUser = generateNewUser(form)
-  //     await api.postUser(newUser, '/users')
-  //     setAddNewUserBtn(false)
-  //   }
+    getAllUsers()
+  }, [])
 
   return (
     <main className="main">
       <section className="card users-container">
         <Search></Search>
-        <Table
-          listOfUsers={usersData}
-          infoBtnClick={setInfoBtn}
-          editBtnClick={setEditBtn}
-        ></Table>
-        <button className="btn-add btn" onClick={() => setAddNewUserBtn(true)}>
-          Add new user
-        </button>
+        <Table listOfUsers={usersData} setInfoUserD={setInfoUserD}></Table>
+        <button className="btn-add btn">Add new user</button>
         <Pagination></Pagination>
       </section>
-
-      {infoBtn[0] && <Details></Details>}
-
-      {addNewUserBtn && (
-        // onSave={addNewUser}
-        <Create onClose={setAddNewUserBtn}></Create>
+      {infoUserD && (
+        <Details close={setInfoUserD} user={infoUserD.user}></Details>
       )}
-      {editBtn[0] && (
-        <Edit
-          //   user={editUserData}
-          //   onSave={addNewUser}
-          onClose={setEditBtn}
-        ></Edit>
-      )}
+      {/* <Create></Create> */}
+      {/* <Edit></Edit> */}
     </main>
   )
 }
+
+function getUsers() {}
 
 function generateNewUser(form) {
   const data = new FormData(form)
@@ -101,13 +56,3 @@ function generateNewUser(form) {
   }
   return newUser
 }
-// with THEN
-// useEffect(() => {
-// 	api.getUsers("/users")
-// 		.then((res) => res)
-// 		.then((data) => {
-// 			console.log("useEffect 2nd then: ", data);
-// 			const newUserData = data;
-// 			setUsersData((old) => (old = newUserData));
-// 		});
-// }, []);

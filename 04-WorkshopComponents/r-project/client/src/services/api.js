@@ -31,8 +31,8 @@ async function deleteUser(endPoint) {
   const url = baseUrl + endPoint
   await fetch(url, { method: 'DELETE' })
 }
-async function getUserById(endPoint) {
-  const url = baseUrl + endPoint
+async function getUserById(endPoint, id) {
+  const url = baseUrl + endPoint + `/${id}`
   const res = await fetch(url)
   const user = await res.json()
   return user

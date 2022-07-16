@@ -1,7 +1,8 @@
 import { HeadRow } from './Head.js'
 import { BodyRow } from './Body.js'
 
-export const Table = ({ listOfUsers, infoBtnClick, editBtnClick }) => {
+export const Table = ({ listOfUsers, setInfoUserD }) => {
+  //   console.log('Table: ', listOfUsers)
   return (
     <div className="table-wrapper">
       <table className="table">
@@ -10,12 +11,7 @@ export const Table = ({ listOfUsers, infoBtnClick, editBtnClick }) => {
         </thead>
         <tbody>
           {listOfUsers.map((user) => (
-            <BodyRow
-              key={user._id}
-              user={user}
-              infoBtnClick={(e, clicked) => infoBtnClick(e, clicked)}
-              editBtnClick={(e, clicked) => editBtnClick(e, clicked)}
-            ></BodyRow>
+            <BodyRow key={user._id} user={user} setInfoUserD={setInfoUserD} />
           ))}
         </tbody>
       </table>

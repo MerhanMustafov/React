@@ -1,14 +1,12 @@
-export const Create = ({ onClose, onSave }) => {
-  // console.log(obj);
-  // const form = document.querySelector("form");
+export const Create = () => {
   return (
     <div className="overlay">
-      <div className="backdrop" onClick={() => onClose(false)}></div>
+      <div className="backdrop"></div>
       <div className="modal">
         <div className="user-container">
           <header className="headers">
             <h2>Add User</h2>
-            <button className="btn close" onClick={() => onClose(false)}>
+            <button className="btn close">
               <svg
                 aria-hidden="true"
                 focusable="false"
@@ -142,20 +140,10 @@ export const Create = ({ onClose, onSave }) => {
               </div>
             </div>
             <div id="form-actions">
-              <button
-                id="action-save"
-                className="btn"
-                type="submit"
-                onClick={(e) => onSave(e, '.addForm')}
-              >
+              <button id="action-save" className="btn" type="submit">
                 Save
               </button>
-              <button
-                id="action-cancel"
-                className="btn"
-                type="button"
-                onClick={() => onClose(false)}
-              >
+              <button id="action-cancel" className="btn" type="button">
                 Cancel
               </button>
             </div>

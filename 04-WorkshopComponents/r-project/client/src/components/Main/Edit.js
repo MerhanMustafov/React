@@ -1,13 +1,12 @@
-export const Edit = ({ user, onSave, onClose }) => {
-  console.log(user)
+export const Edit = () => {
   return (
     <div className="overlay">
-      <div className="backdrop" onClick={() => onClose(false)}></div>
+      <div className="backdrop"></div>
       <div className="modal">
         <div className="user-container">
           <header className="headers">
             <h2>Edit User</h2>
-            <button className="btn close" onClick={() => onClose(false)}>
+            <button className="btn close">
               <svg
                 aria-hidden="true"
                 focusable="false"
@@ -141,20 +140,10 @@ export const Edit = ({ user, onSave, onClose }) => {
               </div>
             </div>
             <div id="form-actions">
-              <button
-                id="action-save"
-                className="btn"
-                type="submit"
-                onClick={(e) => onSave(e, '.editForm')}
-              >
+              <button id="action-save" className="btn" type="submit">
                 Save
               </button>
-              <button
-                id="action-cancel"
-                className="btn"
-                type="button"
-                onClick={() => onClose(false)}
-              >
+              <button id="action-cancel" className="btn" type="button">
                 Cancel
               </button>
             </div>
