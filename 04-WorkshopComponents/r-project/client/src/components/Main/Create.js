@@ -1,12 +1,20 @@
-export const Create = () => {
+import * as api from '../../services/api.js'
+export const Create = ({ close, setUsersData }) => {
+  async function addNewUser(e) {
+    e.preventDefault()
+    const newUser = generateNewUser(e.target.form)
+    await api.postUser(newUser, '/users')
+    setUsersData(await api.getUsers('/users'))
+    close(null)
+  }
   return (
     <div className="overlay">
-      <div className="backdrop"></div>
+      <div className="backdrop" onClick={() => close(null)}></div>
       <div className="modal">
         <div className="user-container">
           <header className="headers">
             <h2>Add User</h2>
-            <button className="btn close">
+            <button className="btn close" onClick={() => close(null)}>
               <svg
                 aria-hidden="true"
                 focusable="false"
@@ -140,10 +148,20 @@ export const Create = () => {
               </div>
             </div>
             <div id="form-actions">
-              <button id="action-save" className="btn" type="submit">
+              <button
+                id="action-save"
+                className="btn"
+                type="submit"
+                onClick={(e) => addNewUser(e)}
+              >
                 Save
               </button>
-              <button id="action-cancel" className="btn" type="button">
+              <button
+                id="action-cancel"
+                className="btn"
+                type="button"
+                onClick={() => close(null)}
+              >
                 Cancel
               </button>
             </div>
@@ -152,4 +170,22 @@ export const Create = () => {
       </div>
     </div>
   )
+}
+
+function generateNewUser(form) {
+  const data = new FormData(form)
+  const newUser = {
+    firstName: data.get('firstName'),
+    lastName: data.get('lastName'),
+    email: data.get('email'),
+    imageUrl: data.get('imageUrl'),
+    phoneNumber: data.get('phoneNumber'),
+    address: {
+      country: data.get('country'),
+      city: data.get('city'),
+      street: data.get('street'),
+      streetNumber: Number(data.get('streetNumber')),
+    },
+  }
+  return newUser
 }

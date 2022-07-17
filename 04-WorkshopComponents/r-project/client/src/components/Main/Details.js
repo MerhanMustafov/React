@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 export const Details = ({ close, user }) => {
   //   console.log('Inside Details')
   //   useEffect(() => {

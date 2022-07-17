@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import * as api from '../../services/api.js'
-import { statesObject } from '../../services/states.js'
 
 import { Search } from './Search.js'
 import { Table } from './Table/Table.js'
@@ -12,6 +11,8 @@ import { Pagination } from './Pagination'
 export const Main = () => {
   const [usersData, setUsersData] = useState([])
   const [infoUserD, setInfoUserD] = useState(null)
+  const [editUserD, setEditUserD] = useState(null)
+  const [addNewUserBtn, setAddNewUserBtn] = useState(false)
   //   console.log('Running... ', usersData)
   useEffect(() => {
     async function getAllUsers() {
@@ -24,20 +25,33 @@ export const Main = () => {
     <main className="main">
       <section className="card users-container">
         <Search></Search>
-        <Table listOfUsers={usersData} setInfoUserD={setInfoUserD}></Table>
-        <button className="btn-add btn">Add new user</button>
+        <Table
+          listOfUsers={usersData}
+          setInfoUserD={setInfoUserD}
+          setEditUserD={setEditUserD}
+          setUsersData={setUsersData}
+        ></Table>
+        <button className="btn-add btn" onClick={() => setAddNewUserBtn(true)}>
+          Add new user
+        </button>
         <Pagination></Pagination>
       </section>
       {infoUserD && (
         <Details close={setInfoUserD} user={infoUserD.user}></Details>
       )}
-      {/* <Create></Create> */}
-      {/* <Edit></Edit> */}
+      {addNewUserBtn && (
+        <Create close={setAddNewUserBtn} setUsersData={setUsersData}></Create>
+      )}
+      {editUserD && (
+        <Edit
+          user={editUserD.user}
+          close={setEditUserD}
+          setUsersData={setUsersData}
+        ></Edit>
+      )}
     </main>
   )
 }
-
-function getUsers() {}
 
 function generateNewUser(form) {
   const data = new FormData(form)

@@ -1,4 +1,4 @@
-export { getUsers, postUser, deleteUser, getUserById }
+export { getUsers, postUser, deleteUser, getUserById, update }
 
 const baseUrl = 'http://localhost:3005/api'
 // function getUsers(endPoint) {
@@ -36,4 +36,15 @@ async function getUserById(endPoint, id) {
   const res = await fetch(url)
   const user = await res.json()
   return user
+}
+
+async function update(endPoint, id, user) {
+  const url = baseUrl + endPoint + `/${id}`
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(user),
+  })
+  const u = await res.json()
+  return u
 }

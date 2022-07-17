@@ -1,7 +1,26 @@
 import * as api from '../../../services/api.js'
-export const BodyRow = ({ user, setInfoUserD }) => {
-  async function getUser(e) {
-    setInfoUserD(await api.getUserById('/users', e.target.id))
+export const BodyRow = ({ user, setInfoUserD, setEditUserD, setUsersData }) => {
+  async function getUser(e, clicked) {
+    const id =
+      e.target.id ||
+      e.target.parentElement.id ||
+      e.target.parentElement.parentElement.id
+    if (clicked === 'infoBtn') {
+      //   console.log('clicked infoBtn')
+      setInfoUserD(await api.getUserById('/users', id))
+    } else if (clicked === 'editBtn') {
+      //   console.log('Clicked editBtn')
+      setEditUserD(await api.getUserById('/users', id))
+    }
+  }
+
+  async function deleteUser(e) {
+    const id =
+      e.target.id ||
+      e.target.parentElement.id ||
+      e.target.parentElement.parentElement.id
+    await api.deleteUser(`/users/${id}`)
+    setUsersData(await api.getUsers('/users'))
   }
   return (
     <tr id={user._id}>
@@ -15,7 +34,14 @@ export const BodyRow = ({ user, setInfoUserD }) => {
       <td>{user.createdAt}</td>
 
       <td className="actions">
-        <button className="btn edit-btn" title="Edit">
+        <button
+          className="btn edit-btn"
+          title="Edit"
+          onClick={(e) => {
+            getUser(e, 'editBtn')
+          }}
+          id={user._id}
+        >
           <svg
             aria-hidden="true"
             focusable="false"
@@ -32,7 +58,12 @@ export const BodyRow = ({ user, setInfoUserD }) => {
             ></path>
           </svg>
         </button>
-        <button className="btn delete-btn" title="Delete">
+        <button
+          className="btn delete-btn"
+          title="Delete"
+          id={user._id}
+          onClick={(e) => deleteUser(e)}
+        >
           <svg
             aria-hidden="true"
             focusable="false"
@@ -52,16 +83,12 @@ export const BodyRow = ({ user, setInfoUserD }) => {
         <button
           className="btn info-btn"
           title="Info"
-          onClick={(e) => {
-            getUser(e)
-          }}
           id={user._id}
+          onClick={(e) => {
+            getUser(e, 'infoBtn')
+          }}
         >
           <svg
-            id={user._id}
-            onClick={(e) => {
-              getUser(e)
-            }}
             aria-hidden="true"
             focusable="false"
             data-prefix="fas"
@@ -72,10 +99,6 @@ export const BodyRow = ({ user, setInfoUserD }) => {
             viewBox="-150 0 512 612"
           >
             <path
-              id={user._id}
-              onClick={(e) => {
-                getUser(e)
-              }}
               fill="currentColor"
               d="M160 448h-32V224c0-17.69-14.33-32-32-32L32 192c-17.67 0-32 14.31-32 32s14.33 31.1 32 31.1h32v192H32c-17.67 0-32 14.31-32 32s14.33 32 32 32h128c17.67 0 32-14.31 32-32S177.7 448 160 448zM96 128c26.51 0 48-21.49 48-48S122.5 32.01 96 32.01s-48 21.49-48 48S69.49 128 96 128z"
             ></path>
